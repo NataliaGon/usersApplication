@@ -1,0 +1,73 @@
+[debug] [2018-08-13T21:50:00.582Z] ----------------------------------------------------------------------
+[debug] [2018-08-13T21:50:00.585Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-08-13T21:50:00.585Z] CLI Version:   4.0.3
+[debug] [2018-08-13T21:50:00.585Z] Platform:      darwin
+[debug] [2018-08-13T21:50:00.585Z] Node Version:  v8.11.1
+[debug] [2018-08-13T21:50:00.586Z] Time:          Tue Aug 14 2018 00:50:00 GMT+0300 (IDT)
+[debug] [2018-08-13T21:50:00.586Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-08-13T21:50:00.606Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-08-13T21:50:00.607Z] > authorizing via signed-in user
+[debug] [2018-08-13T21:50:00.610Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/user-226b9  
+  
+ Tue Aug 14 2018 00:50:00 GMT+0300 (IDT)
+[debug] [2018-08-13T21:50:01.687Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-13T21:50:01.689Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/user-226b9/tokens  
+  
+ Tue Aug 14 2018 00:50:01 GMT+0300 (IDT)
+[debug] [2018-08-13T21:50:02.409Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-13T21:50:02.410Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/user-226b9  
+  
+ Tue Aug 14 2018 00:50:02 GMT+0300 (IDT)
+[debug] [2018-08-13T21:50:03.607Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/natalia/myapp'...
+[info] 
+[debug] [2018-08-13T21:50:03.612Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/8824259312/clients/_:getWebAppConfig  
+  
+ Tue Aug 14 2018 00:50:03 GMT+0300 (IDT)
+[debug] [2018-08-13T21:50:04.526Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: build
+[info] ✔  hosting: Local server: http://localhost:5000
+
+[debug] [2018-08-14T09:22:12.540Z] ----------------------------------------------------------------------
+[debug] [2018-08-14T09:22:12.543Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve
+[debug] [2018-08-14T09:22:12.543Z] CLI Version:   4.0.3
+[debug] [2018-08-14T09:22:12.543Z] Platform:      darwin
+[debug] [2018-08-14T09:22:12.543Z] Node Version:  v8.11.1
+[debug] [2018-08-14T09:22:12.544Z] Time:          Tue Aug 14 2018 12:22:12 GMT+0300 (IDT)
+[debug] [2018-08-14T09:22:12.544Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-08-14T09:22:12.561Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-08-14T09:22:12.562Z] > authorizing via signed-in user
+[debug] [2018-08-14T09:22:12.564Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-08-14T09:22:12.564Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/ZP6ySp5UcVENpSlLBbB9tyeZerTTdCeQlTVFL0wWSL4',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Tue Aug 14 2018 12:22:12 GMT+0300 (IDT)
+[debug] [2018-08-14T09:22:12.987Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-14T09:22:13.001Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/user-226b9  
+  
+ Tue Aug 14 2018 12:22:13 GMT+0300 (IDT)
+[debug] [2018-08-14T09:22:14.409Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-14T09:22:14.409Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/user-226b9/tokens  
+  
+ Tue Aug 14 2018 12:22:14 GMT+0300 (IDT)
+[debug] [2018-08-14T09:22:15.757Z] <<< HTTP RESPONSE 200
+[debug] [2018-08-14T09:22:15.758Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/user-226b9  
+  
+ Tue Aug 14 2018 12:22:15 GMT+0300 (IDT)
+[debug] [2018-08-14T09:22:17.216Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/natalia/myapp'...
+[info] 
+[debug] [2018-08-14T09:22:17.218Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/8824259312/clients/_:getWebAppConfig  
+  
+ Tue Aug 14 2018 12:22:17 GMT+0300 (IDT)
+[debug] [2018-08-14T09:22:17.925Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: build
+[info] ✔  hosting: Local server: http://localhost:5000
+
