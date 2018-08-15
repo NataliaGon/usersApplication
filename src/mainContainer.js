@@ -3,8 +3,8 @@ import React from "react";
 import HeaderTab from "./headerTab.js";
 import Form from "./form.js";
 import User from "./user.js";
-
-import { database, auth, googleAuthProvider, storage } from './firebase';
+import * as firebase from "firebase";
+// import { firebase,database, auth, googleAuthProvider, storage } from './firebase';
 
 
 
@@ -16,7 +16,7 @@ export default class MainContainer extends React.Component {
       items:[]
     };
   
-   console.log( database);
+   
   }
   
   // componentWillMount() {
@@ -69,13 +69,11 @@ export default class MainContainer extends React.Component {
       photo,
       file
     };
-    console.log(this.firebaseRef);
-      this.firebaseRef.push({
-        text: user
-      });
-      this.setState({text: ""});
+    console.log(user);
+    firebase.database.ref('user/' + user.ident).set(user);
     
-    this.setState({ users: this.state.users.concat([user]) });
+    
+    // this.setState({ users: this.state.users.concat([user])});
   }
 
   _getUser() {

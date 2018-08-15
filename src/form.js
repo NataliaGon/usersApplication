@@ -66,7 +66,9 @@ export default  class Form extends React.Component{
          
         if (name.value.length>0 && phone.value.length>0 && address.value.length>0 && gender.value.length>0&& age.value.length>0){
             // pushToFireBase(name.value, phone.value, address.value, gender.value, age.value, this.state.imagePreviewUrl, this.state.file);
+            console.log(name.value);
             this.props.addUser(name.value, phone.value, address.value, gender.value, age.value, this.state.imagePreviewUrl, this.state.file);
+            
             this.setState({displayModal: !this.state.displayModal});
             this.setState({imagePreviewUrl: ''});
             this.setState({file: ''});
