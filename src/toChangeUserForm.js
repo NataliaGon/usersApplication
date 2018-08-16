@@ -40,18 +40,20 @@ export default  class FormForUserChange extends React.Component{
         }  
    
     _handleSubmit(event){
+       
         event.preventDefault();
-        var name=this._name;
-        var gender=this._gender;
-        var age=this._age;
-        var phone=this._phone;
-        var address=this._address;
-        var photo=this.state.photo;
-        var id=this.props.userToChange.ident; 
-        if (name.value.length>0 && phone.value.length>0 && address.value.length>0&& gender.value.length>0&& age.value.length>0){
-            this.props.saveChangedUser(name.value, phone.value, address.value,gender.value, age.value, this.state.imagePreviewUrl,id,); 
+        if (this._name.value.length>0 && this._address.value.length>0&& this._gender.value.length>0&& this._age.value.length>0){
+        const changedUser = {    
+        name:this._name.value,
+        gender:this._gender.value,
+        age:this._age.value,
+        phone:this._phone.value,
+        address:this._address.value,
+        id:this.props.userToChange.ident
         }
-        
+        this.props.saveChangedUser(changedUser, this.props.userToChange.hash); 
+
+    }   
     } 
     _handleImageChange(e) {
          e.preventDefault();

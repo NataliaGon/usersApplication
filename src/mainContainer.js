@@ -3,32 +3,31 @@ import React from "react";
 import HeaderTab from "./headerTab.js";
 import Form from "./form.js";
 import User from "./user.js";
-import * as firebase from "firebase";
-// import { firebase,database, auth, googleAuthProvider, storage } from './firebase';
-
-
+import { firebaseDatabaseUsersRef } from './firebase.js';
+import * as firebase from 'firebase';
 
 export default class MainContainer extends React.Component {
   constructor() {
     super();
     this.state = {
       users: [],
-      items:[]
+      items:[] 
     };
+
+    
   
-   
   }
-  
-  // componentWillMount() {
-  //   this.firebaseRef = new Firebase("https://user-226b9.firebaseio.com//items/");
-  //   this.firebaseRef.on("child_added", function(dataSnapshot) {
-  //     this.items.push(dataSnapshot.val());
-  //     this.setState({
-  //       items: this.items
-  //     });
-  //   }.bind(this));
-  //   console.log(this.State.items);
-  // }
+
+ 
+  componentWillMount() {
+    this.itemsRef = firebase.database().ref('users');
+    this.itemsRef.on('value', (snapshot)=> {
+      let dataFromFirebase= snapshot.val();
+      dataFromFirebase = this.objectToArray(dataFromFirebase);
+          console.log(dataFromFirebase); 
+          this.setState({users: dataFromFirebase});
+    });
+  }
   render() {
     let usersToShow = this._getUser();
     // let id;
@@ -45,8 +44,16 @@ export default class MainContainer extends React.Component {
     );
   }
 
+ 
+  objectToArray(object){
 
-  
+    let array =[];
+   for(let key in object){
+    object[key].hash = key;
+       array.push(object[key]);
+   }
+   return array;
+  }
   makeid() {
     var text = "";
     var possible =
@@ -69,11 +76,8 @@ export default class MainContainer extends React.Component {
       photo,
       file
     };
-    console.log(user);
-    firebase.database.ref('user/' + user.ident).set(user);
+    firebaseDatabaseUsersRef.push(user);
     
-    
-    // this.setState({ users: this.state.users.concat([user])});
   }
 
   _getUser() {
@@ -93,28 +97,23 @@ export default class MainContainer extends React.Component {
     const users = [...this.state.users];
     const userIndex = users.indexOf(user);
     users.splice(userIndex, 1);
+    firebaseDatabaseUsersRef.child(user.hash).remove();
     this.setState({ users });
   }
-  _saveUserAfterChange(name, phone, address, gender,age,photo, id) {
-    let newChangedUser = {
-      ident: this.makeid(),
-      name,
-      phone,
-      address,
-      gender,
-      age,
-      photo
-      
-    };
+  _saveUserAfterChange(user,hash) {
+    user.ident=this.makeid();
+    console.log(hash);
+    console.log(user);
+    firebaseDatabaseUsersRef.child(hash).update(user);
+   const users = [...this.state.users];
+  for (let user of users) {
+    if (user.ident == user.id) {
+      let indexUserToChange = this.state.users.indexOf(user);
 
-    const users = [...this.state.users];
-    for (let user of users) {
-      if (user.ident == id) {
-        let indexUserToChange = this.state.users.indexOf(user);
-
-        //    user=newChangedUser;
-        users.splice(indexUserToChange, 1, newChangedUser);
-        this.setState({ users });
+      //    user=newChangedUser;
+      users.splice(indexUserToChange, 1, user);
+      this.setState({ users });
+    
       }
     }
   }

@@ -55,9 +55,9 @@ export default  class User extends React.Component{
         }
 
     }
-    _saveChangedUser(name, phone, address, gender,age, photo, id){
+    _saveChangedUser(user, hash){
         this.setState({openModal: !this.state.openModal})
-       this.props.saveUserAfterChange(name, phone, address, gender,age,photo, id);
+       this.props.saveUserAfterChange(user,hash);
     }    
         
     
