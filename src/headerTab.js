@@ -9,7 +9,6 @@ export default class HeaderTab extends React.Component{
                 <div className="user-name">Gender</div>
                 <div className="user-phone">Phone</div>
                 <div className="user-address">Address</div>
-                <div className="user-photo">Photo</div>
                 <div className="buttons"></div>
             </header>
     )

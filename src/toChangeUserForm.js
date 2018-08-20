@@ -4,10 +4,8 @@ export default  class FormForUserChange extends React.Component{
     constructor(){
         super();
         this.state={
-            photo:'',
-            imagePreviewUrl:''
+            
         }
-        this._handleImageChange = this._handleImageChange.bind(this);
     }
         render(){
         let form
@@ -23,7 +21,6 @@ export default  class FormForUserChange extends React.Component{
                     <input className="form-control" type="text" defaultValue={this.props.userToChange.gender} placeholder="gender"  ref={(input)=>this._gender=input}></input>
                     <input className="form-control" type="tel"  defaultValue={this.props.userToChange.phone} placeholder="phone"   ref={(input)=>this._phone=input}></input>
                     <input className="form-control" type="text" defaultValue={this.props.userToChange.address} placeholder="address"   ref={(input)=>this._address=input}></input>  
-                    <input type="file"  accept="image/jpeg,image/png"  onChange={this._handleImageChange}/>
                     <button className="btn btn-primary" type="submit">Save changes</button>
                  </form>
                 </div> 
@@ -55,18 +52,5 @@ export default  class FormForUserChange extends React.Component{
 
     }   
     } 
-    _handleImageChange(e) {
-         e.preventDefault();
-         let file = e.target.files[0];
-         let reader = new FileReader();
-         reader.readAsDataURL(file)
-         reader.onloadend = () => {
-            
-            this.setState({
-                file: file,
-                imagePreviewUrl: reader.result
-            });
-        }
-    }
-}     
+}
   

@@ -23,7 +23,7 @@ export default  class User extends React.Component{
              <div className="user-phone">{this.props.user.phone}</div>
              <div className="user-address">{this.props.user.address}</div>
 
-             <div className="user-photo"><img className="image" src={this.props.user.photo} alt=""/></div>
+             
              <div className="buttons">
                  <button className="btn btn-danger" onClick={this._handleDelete.bind(this)}> delete</button>
                  <button className=" btn btn-primary btn-edit" onClick={this._userEdit.bind(this)}>{this.state.editBtnText}</button>

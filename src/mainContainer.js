@@ -12,13 +12,9 @@ export default class MainContainer extends React.Component {
     this.state = {
       users: [],
       items:[] 
-    };
-
-    
-  
+    }; 
   }
 
- 
   componentWillMount() {
     this.itemsRef = firebase.database().ref('users');
     this.itemsRef.on('value', (snapshot)=> {
@@ -30,7 +26,7 @@ export default class MainContainer extends React.Component {
   }
   render() {
     let usersToShow = this._getUser();
-    // let id;
+ 
     return (
       <div>
         <HeaderTab />
@@ -65,16 +61,14 @@ export default class MainContainer extends React.Component {
     return text;
   }
 
-  _addUser(name, phone, address,gender,age, photo, file) {
+  _addUser(name, phone, address,gender,age) {
     let user = {
       ident: this.makeid(),
       name,
       phone,
       address,
       gender,
-      age,
-      photo,
-      file
+      age
     };
     firebaseDatabaseUsersRef.push(user);
     
@@ -87,7 +81,6 @@ export default class MainContainer extends React.Component {
           key={user.ident}
           deleteUser={this._deleteUser.bind(this)}
           user={user}
-          //   editBtnText={this.state.btnEditText}
           saveUserAfterChange={this._saveUserAfterChange.bind(this)}
         />
       );
@@ -102,15 +95,11 @@ export default class MainContainer extends React.Component {
   }
   _saveUserAfterChange(user,hash) {
     user.ident=this.makeid();
-    console.log(hash);
-    console.log(user);
     firebaseDatabaseUsersRef.child(hash).update(user);
    const users = [...this.state.users];
   for (let user of users) {
     if (user.ident == user.id) {
       let indexUserToChange = this.state.users.indexOf(user);
-
-      //    user=newChangedUser;
       users.splice(indexUserToChange, 1, user);
       this.setState({ users });
     

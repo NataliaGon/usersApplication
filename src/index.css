@@ -1,15 +1,24 @@
 .user{
   display: flex;
   width: 100vw;
-  padding-left: 20px;
-  margin-top: 20px;
-  height: 200px;
+  padding-left:20px;
+  padding-right:40px;
+  margin-top: 40px;
+  height: auto;
 }
-.user-name, .user-phone, .user-address, .user-photo,.user-age,.user-gender, .buttons{
-  width: 14vw;
+ .buttons{
+  width: 28vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+}
+.user-name, .user-phone, .user-address, .user-photo,.user-age,.user-gender{
+  display: block;
+  text-align: center;
+  word-break: break-all;
+  padding: 2px;
+  flex: 0 0 14vw;
 }
 .user-photo{
   padding: 0px 15px;
@@ -24,6 +33,7 @@
   margin-top: 60px;
   align-items: center;
   padding-left: 20px;
+  padding-right:40px;
   color:white;
 }
 #add-user-btn{
