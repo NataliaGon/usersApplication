@@ -1,16 +1,16 @@
-import React from 'react';
+import React from "react";
 
-export default class HeaderTab extends React.Component{
-    render(){
-        return(
-            <header id="header" className="bg-info">
-                <div className="user-name">Name</div>
-                <div className="user-name">Age</div>
-                <div className="user-name">Gender</div>
-                <div className="user-phone">Phone</div>
-                <div className="user-address">Address</div>
-                <div className="buttons"></div>
-            </header>
-    )
-    }  
-} 
+export default function HeaderTab() {
+  return (
+    <header id="header" className="bg-info">
+      <ul>
+        <li className="user-name">Name</li>
+        <li className="user-name">Age</li>
+        <li className="user-name">Gender</li>
+        <li className="user-phone">Phone</li>
+        <li className="user-address">Address</li>
+        
+      </ul>
+    </header>
+  );
+} //Import array

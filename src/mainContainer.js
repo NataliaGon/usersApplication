@@ -1,54 +1,41 @@
-import React from "react";
-
+import React, {Component} from "react";
 import HeaderTab from "./headerTab.js";
 import Form from "./form.js";
 import User from "./user.js";
-import { firebaseDatabaseUsersRef } from './firebase.js';
-import * as firebase from 'firebase';
+import {firebaseDatabaseUsersRef} from "./firebase.js";
+import * as firebase from "firebase";
 
-export default class MainContainer extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      users: [],
-      items:[] 
-    }; 
-  }
-
-  componentWillMount() {
-    this.itemsRef = firebase.database().ref('users');
-    this.itemsRef.on('value', (snapshot)=> {
-      let dataFromFirebase= snapshot.val();
+class MainContainer extends Component{
+  state = {
+    users: [],
+    items: []
+  };
+  componentWillMount(){
+    this.itemsRef = firebase.database().ref("users");
+    this.itemsRef.on("value", snapshot => {
+      let dataFromFirebase = snapshot.val();
       dataFromFirebase = this.objectToArray(dataFromFirebase);
-          console.log(dataFromFirebase); 
-          this.setState({users: dataFromFirebase});
+      this.setState({ users: dataFromFirebase });
     });
   }
   render() {
     let usersToShow = this._getUser();
- 
     return (
       <div>
         <HeaderTab />
         {usersToShow}
-
-        <Form
-          addUser={this._addUser.bind(this)}
-          openModal={this.state.openModal}
-        />
+        <Form addUser={this._addUser} openModal={this.state.openModal} />
       </div>
     );
   }
 
- 
-  objectToArray(object){
-
-    let array =[];
-   for(let key in object){
-    object[key].hash = key;
-       array.push(object[key]);
-   }
-   return array;
+  objectToArray(object) {
+    let array = [];
+    for (let key in object) {
+      object[key].hash = key;
+      array.push(object[key]);
+    }
+    return array;
   }
   makeid() {
     var text = "";
@@ -61,7 +48,7 @@ export default class MainContainer extends React.Component {
     return text;
   }
 
-  _addUser(name, phone, address,gender,age) {
+  _addUser = (name, phone, address, gender, age) => {
     let user = {
       ident: this.makeid(),
       name,
@@ -71,8 +58,7 @@ export default class MainContainer extends React.Component {
       age
     };
     firebaseDatabaseUsersRef.push(user);
-    
-  }
+  };
 
   _getUser() {
     return this.state.users.map(user => {
@@ -93,17 +79,18 @@ export default class MainContainer extends React.Component {
     firebaseDatabaseUsersRef.child(user.hash).remove();
     this.setState({ users });
   }
-  _saveUserAfterChange(user,hash) {
-    user.ident=this.makeid();
+  _saveUserAfterChange(user, hash) {
+    user.ident = this.makeid();
     firebaseDatabaseUsersRef.child(hash).update(user);
-   const users = [...this.state.users];
-  for (let user of users) {
-    if (user.ident == user.id) {
-      let indexUserToChange = this.state.users.indexOf(user);
-      users.splice(indexUserToChange, 1, user);
-      this.setState({ users });
-    
+    const users = [...this.state.users];
+    for (let user of users) {
+      if (user.ident == user.id) {
+        let indexUserToChange = this.state.users.indexOf(user);
+        users.splice(indexUserToChange, 1, user);
+        this.setState({ users });
       }
     }
   }
 }
+
+export default MainContainer; 

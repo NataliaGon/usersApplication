@@ -14,7 +14,7 @@
   flex-wrap: wrap;
 }
 .user-name, .user-phone, .user-address, .user-photo,.user-age,.user-gender{
-  display: block;
+  display: inline-block;
   text-align: center;
   word-break: break-all;
   padding: 2px;
@@ -50,9 +50,24 @@
   margin:0 10vw;
   left:0;
 }
-#form input,#form button{
+#form input,
+#form button,
+#form select{
   margin-top: 20px;
 }
-.btn-edit{
-  margin-left: 20px;
+.buttons .btn{
+  width:80px
+}
+
+.form-container{
+  width: 90%;
+}
+ul{
+  display:flex;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+ul li{
+  display: inline;
 }
