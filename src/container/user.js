@@ -1,42 +1,40 @@
-import React from "react";
-import FormForUserChange from "./toChangeUserForm";
+import React, { Component } from 'react';
+import FormForUserChange from './toChangeUserForm';
 
-export default class User extends React.Component {
+class User extends Component {
   constructor() {
     super();
     this.state = {
       openModal: false,
       userToChange: {},
-      editBtnText: "edit",
-      userOur:{}
+      editBtnText: 'edit',
+      userOur: {}
     };
   }
-componentWillMount(){
-    this.setState({userOur:this.props.user })
-}
-
-  _handleDelete(event) {
+  componentWillMount = () => {
+    this.setState({ userOur: this.props.user });
+  };
+  _handleDelete = event => {
     event.preventDefault();
     this.props.deleteUser(this.props.user);
-  }
-  _userEdit(event) {
+  };
+  _userEdit = event => {
     event.preventDefault();
     this.setState({ userToChange: this.props.user });
     this.setState({ openModal: !this.state.openModal });
     this._changeEditBtnText();
-  }
-  _changeEditBtnText() {
+  };
+  _changeEditBtnText = () => {
     if (this.state.openModal) {
-      this.setState({ editBtnText: "edit" });
+      this.setState({ editBtnText: 'edit' });
     } else {
-      this.setState({ editBtnText: "cansel" });
+      this.setState({ editBtnText: 'cansel' });
     }
-  }
-  _saveChangedUser(user, hash) {
+  };
+  _saveChangedUser = (user, hash) => {
     this.setState({ openModal: !this.state.openModal });
     this.props.saveUserAfterChange(user, hash);
-  }
-
+  };
   render() {
     return (
       <div className="user">
@@ -55,13 +53,12 @@ componentWillMount(){
             delete
           </button>
           <button
-            className=" btn btn-primary btn-edit"
+            className="btn btn-primary btn-edit"
             onClick={this._userEdit.bind(this)}
           >
             {this.state.editBtnText}
           </button>
         </div>
-
         <FormForUserChange
           userToChange={this.state.userOur}
           openModal={this.state.openModal}
@@ -71,3 +68,5 @@ componentWillMount(){
     );
   }
 }
+
+export default User;

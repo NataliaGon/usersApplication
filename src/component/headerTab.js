@@ -8,9 +8,8 @@ export default function HeaderTab() {
         <li className="user-name">Age</li>
         <li className="user-name">Gender</li>
         <li className="user-phone">Phone</li>
-        <li className="user-address">Address</li>
-        
+        <li className="user-address">Address</li>      
       </ul>
     </header>
   );
-} //Import array
+} //Make import array

@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-
-import './App.css';
-
-
-import MainContainer from  './mainContainer';
+import MainContainer from  './container/mainContainer';
 
 class App extends Component {
   constructor(props) {

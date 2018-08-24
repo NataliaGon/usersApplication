@@ -1,24 +1,23 @@
-import React, {Component} from "react";
-import HeaderTab from "./headerTab.js";
-import Form from "./form.js";
-import User from "./user.js";
-import {firebaseDatabaseUsersRef} from "./firebase.js";
-import * as firebase from "firebase";
+import React, { Component } from 'react';
+import HeaderTab from '../component/headerTab.js';
+import Form from './form.js';
+import User from './user.js';
+import makeid from '../service/makeID.js';
+import { firebaseDatabaseUsersRef } from '../configs/firebase.js';
+import * as firebase from 'firebase';
 
-class MainContainer extends Component{
+class MainContainer extends Component {
   state = {
-    users: [],
-    items: []
+    users: []
   };
-  componentWillMount(){
-    this.itemsRef = firebase.database().ref("users");
-    this.itemsRef.on("value", snapshot => {
+  componentWillMount() {
+    this.itemsRef = firebase.database().ref('users');
+    this.itemsRef.on('value', snapshot => {
       let dataFromFirebase = snapshot.val();
       dataFromFirebase = this.objectToArray(dataFromFirebase);
       this.setState({ users: dataFromFirebase });
     });
   }
-
   objectToArray(object) {
     let array = [];
     for (let key in object) {
@@ -27,29 +26,10 @@ class MainContainer extends Component{
     }
     return array;
   }
-  makeid() {
-    var text = "";
-    var possible =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for (var i = 0; i < 10; i++)
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
-  }
-
-  _addUser = (name, phone, address, gender, age) => {
-    let user = {
-      ident: this.makeid(),
-      name,
-      phone,
-      address,
-      gender,
-      age
-    };
+  _addUser = (user) => {
+    user.ident=makeid();
     firebaseDatabaseUsersRef.push(user);
   };
-
   _getUser() {
     return this.state.users.map(user => {
       return (
@@ -70,7 +50,7 @@ class MainContainer extends Component{
     this.setState({ users });
   }
   _saveUserAfterChange(user, hash) {
-    user.ident = this.makeid();
+    user.ident = makeid();
     firebaseDatabaseUsersRef.child(hash).update(user);
     const users = [...this.state.users];
     for (let user of users) {
@@ -87,12 +67,10 @@ class MainContainer extends Component{
       <div>
         <HeaderTab />
         {usersToShow}
-        <Form addUser={this._addUser} openModal={this.state.openModal} />
+        <Form addUser={this._addUser}/>
       </div>
     );
   }
-
- 
 }
 
-export default MainContainer; 
+export default MainContainer;

@@ -1,29 +1,49 @@
-import React from "react";
+import React, { Component } from 'react';
+import myPhone from '../service/checkPhone.js';
+import makeid from '../service/makeID.js';
 
-export default class Form extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      displayModal: false,
-          gender:'male'       
-    };
-  }
-componentWillMount(){
+class Form extends Component {
+  state = {
+    displayModal: false,
+    gender: 'male'
+  };
 
-}
+  _showModal = () => {
+    this.setState({ displayModal: !this.state.displayModal });
+  };
+  _handleChange = event => {
+    this.setState({ gender: event.target.value });
+  };
+  _handleSubmit = event => {
+    event.preventDefault();
+    if (
+      this._name.value &&
+      myPhone(this._phone.value) &&
+      this._address.value &&
+      this._age.value
+    ) {
+      const user = {
+        name: this._name.value,
+        age: this._age.value,
+        gender: this.state.gender,
+        phone: this._phone.value,
+        address: this._address.value,
+        id: makeid()
+      };
+      this.props.addUser(user);
+
+      this.setState({ displayModal: !this.state.displayModal });
+    }
+  };
   render() {
     let form;
     let btnText;
     let disabled;
     let usertoChangeName;
-    if (this.props.openModal) {
-      disabled = "disabled";
-    }
-
+    
     if (this.state.displayModal) {
       form = (
-        <div className="shadow p-3 mb-5 bg-white rounded" 
-        id="form">
+        <div className="shadow p-3 mb-5 bg-white rounded" id="form">
           <form
             className="form-control-file. form-container"
             onSubmit={this._handleSubmit.bind(this)}
@@ -42,10 +62,14 @@ componentWillMount(){
               placeholder="age"
               ref={input => (this._age = input)}
             />
-            <select className="form-control"  defaultValue='male' onChange={this._handleChange.bind(this)}>
+            <select
+              className="form-control"
+              defaultValue="male"
+              onChange={this._handleChange.bind(this)}
+            >
               <option value="male">male</option>
               <option value="femal">femal</option>
-            </select>   
+            </select>
             <input
               className="form-control"
               type="text"
@@ -82,45 +106,9 @@ componentWillMount(){
         {form}
       </div>
     );
-  }
-  _showModal() {
-    this.setState({ displayModal: !this.state.displayModal });
-  }
-  _handleChange(event) {
-      if(this._validPhone(event.target.value)){
-    this.setState({gender: event.target.value});
-      }
-  }
-  _handleSubmit(event) {
-    event.preventDefault();
-    const name = this._name;
-    const phone = this._phone;   
-    const age = this._age;
-    const address = this._address;
-    if(
-      name.value &&
-      phone.value &&
-      address.value &&
-      age.value 
-    ){
-    //    if (this._validPhone(phone.value)){ 
-        this.props.addUser(
-        name.value,
-        phone.value,
-        address.value,
-        this.state.gender,
-        age.value,  
-      );
-      this.setState({displayModal: !this.state.displayModal});
-    
-  }
+  }// to make btn not clicable when toChangeUserForm is open
 }
 
-  _validPhone(myPhone) {
-    var re = /^\d[\d\(\)\ -]{4,14}\d$/;
-    var valid = re.test(myPhone);
-    if (valid){
-        return(true);
-    }}
-} 
+export default Form;
 
+//don't use ref

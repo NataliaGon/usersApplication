@@ -1,53 +1,48 @@
-import React from "react";
+import React, { Component } from 'react';
+import myPhone from '../service/checkPhone.js';
 
-export default class FormForUserChange extends React.Component {
+class FormForUserChange extends Component {
   constructor() {
     super();
     this.state = {
-      name: "",
-      age: "",
-      gender: "",
-      phone: "",
-      address: ""
+      name: '',
+      age: '',
+      gender: '',
+      phone: '',
+      address: ''
     };
   }
-  componentWillMount() {
+  componentWillMount = () => {
     this.setState({ name: this.props.userToChange.name });
     this.setState({ age: this.props.userToChange.age });
     this.setState({ gender: this.props.userToChange.gender });
     this.setState({ phone: this.props.userToChange.phone });
     this.setState({ address: this.props.userToChange.address });
-  }
-  _handleChange(event) {
+  };
+  _handleChange = event => {
     this.setState({ gender: event.target.value });
-  }
-  _handleSubmit(event) {
+  };
+  _handleSubmit = event => {
     event.preventDefault();
     if (
-      this._name.value&&
-      this._address.value&&
-      this._phone.value&&
+      this._name.value &&
+      this._address.value &&
+      this._phone.value &&
       this._age.value &&
-      this._validPhone(this._phone.value)
+      myPhone(this._phone.value)
     ) {
-        const changedUser = {
-          name: this._name.value,
-          age: this._age.value,
-          gender:this.state.gender,
-          phone: this._phone.value,
-          address: this._address.value,
-          id: this.props.userToChange.ident
-        };
-        this.props.saveChangedUser(changedUser, this.props.userToChange.hash);
+      const changedUser = {
+        name: this._name.value,
+        age: this._age.value,
+        gender: this.state.gender,
+        phone: this._phone.value,
+        address: this._address.value,
+        id: this.props.userToChange.ident
+      };
+      this.props.saveChangedUser(changedUser, this.props.userToChange.hash);
     }
-  }
-  _validPhone(myPhone) {
-    var re = /^\d[\d\(\)\ -]{4,14}\d$/;
-    var valid = re.test(myPhone);
-    if (valid) {
-      return true;
-    }
-  }
+  };
+
   render() {
     let form;
     let btnText;
@@ -105,7 +100,7 @@ export default class FormForUserChange extends React.Component {
         </div>
       );
     } else {
-      form = "";
+      form = '';
     }
     return (
       <div>
@@ -121,3 +116,5 @@ export default class FormForUserChange extends React.Component {
     );
   }
 }
+
+export default FormForUserChange ;
