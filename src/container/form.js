@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import myPhone from '../service/checkPhone.js';
-import makeid from '../service/makeID.js';
+import React, { Component } from "react";
+import myPhone from "../service/checkPhone.js";
+import makeid from "../service/makeID.js";
 
 class Form extends Component {
   state = {
     displayModal: false,
-    gender: 'male'
+    gender: "male",
+    display: "none"
   };
 
   _showModal = () => {
@@ -29,18 +30,22 @@ class Form extends Component {
         phone: this._phone.value,
         address: this._address.value,
         id: makeid()
-      };
+      }
       this.props.addUser(user);
 
       this.setState({ displayModal: !this.state.displayModal });
-    }
+    }else{
+      this.setState({display: 'block'})
+    };
   };
   render() {
     let form;
     let btnText;
     let disabled;
     let usertoChangeName;
-    
+    const styles = {
+      display: this.state.display
+    };
     if (this.state.displayModal) {
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
@@ -86,6 +91,10 @@ class Form extends Component {
               Send info
             </button>
           </form>
+          <span id="form-fill-error" style={styles}>
+            please fill out all fields correct
+          </span>
+         
         </div>
       );
       btnText = "cansel";
@@ -106,9 +115,11 @@ class Form extends Component {
         {form}
       </div>
     );
-  }// to make btn not clicable when toChangeUserForm is open
+  } // to make btn not clicable when toChangeUserForm is open
 }
 
 export default Form;
 
 //don't use ref
+//check age
+//onblur check

@@ -9,7 +9,8 @@ class FormForUserChange extends Component {
       age: '',
       gender: '',
       phone: '',
-      address: ''
+      address: '',
+      display: "none"
     };
   }
   componentWillMount = () => {
@@ -41,14 +42,19 @@ class FormForUserChange extends Component {
       };
       this.props.saveChangedUser(changedUser, this.props.userToChange.hash);
     }
+    else{
+      this.setState({display: 'block'})
+    }
   };
 
   render() {
     let form;
     let btnText;
-
+    const styles = {
+      display: this.state.display
+    };
     if (this.props.openModal) {
-      console.log(this.props.userToChange.address);
+     
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
           <form
@@ -97,6 +103,9 @@ class FormForUserChange extends Component {
               Save changes
             </button>
           </form>
+          <span id="form-fill-error" style={styles}>
+            please fill out all fields correct
+          </span>
         </div>
       );
     } else {
@@ -118,3 +127,7 @@ class FormForUserChange extends Component {
 }
 
 export default FormForUserChange ;
+
+//don't use ref
+//check age
+//on blur check
