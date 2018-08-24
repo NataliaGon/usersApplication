@@ -18,16 +18,6 @@ class MainContainer extends Component{
       this.setState({ users: dataFromFirebase });
     });
   }
-  render() {
-    let usersToShow = this._getUser();
-    return (
-      <div>
-        <HeaderTab />
-        {usersToShow}
-        <Form addUser={this._addUser} openModal={this.state.openModal} />
-      </div>
-    );
-  }
 
   objectToArray(object) {
     let array = [];
@@ -91,6 +81,18 @@ class MainContainer extends Component{
       }
     }
   }
+  render() {
+    let usersToShow = this._getUser();
+    return (
+      <div>
+        <HeaderTab />
+        {usersToShow}
+        <Form addUser={this._addUser} openModal={this.state.openModal} />
+      </div>
+    );
+  }
+
+ 
 }
 
 export default MainContainer; 

@@ -15,13 +15,14 @@ export default class Form extends React.Component {
       }
     };
   }
- 
+componentWillMount(){
+
+}
   render() {
     let form;
     let btnText;
     let disabled;
     let usertoChangeName;
-
     if (this.props.openModal) {
       disabled = "disabled";
     }
@@ -38,6 +39,7 @@ export default class Form extends React.Component {
               className="form-control"
               type="text"
               placeholder="name"
+              onBlur={this._onBlurHandle.bind(this)}
               ref={input => (this._name = input)}
             >
               {usertoChangeName}
@@ -99,7 +101,7 @@ export default class Form extends React.Component {
     event.preventDefault();
     const name = this._name;
     const phone = this._phone;   
-    const  age = this._age;
+    const age = this._age;
     const address = this._address;
     if(
       name.value &&
@@ -118,6 +120,9 @@ export default class Form extends React.Component {
       this.setState({displayModal: !this.state.displayModal});
     }
   }
+}
+_onBlurHandle(e){
+    console.log(this.event.target.placeholder);
 }
   _validPhone(myPhone) {
     var re = /^\d[\d\(\)\ -]{4,14}\d$/;

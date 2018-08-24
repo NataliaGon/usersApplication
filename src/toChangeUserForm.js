@@ -4,14 +4,56 @@ export default class FormForUserChange extends React.Component {
   constructor() {
     super();
     this.state = {
-      value:'',   
+      name: "",
+      age: "",
+      gender: "",
+      phone: "",
+      address: ""
     };
+  }
+  componentWillMount() {
+    this.setState({ name: this.props.userToChange.name });
+    this.setState({ age: this.props.userToChange.age });
+    this.setState({ gender: this.props.userToChange.gender });
+    this.setState({ phone: this.props.userToChange.phone });
+    this.setState({ address: this.props.userToChange.address });
+  }
+  _handleChange(event) {
+    this.setState({ gender: event.target.value });
+  }
+  _handleSubmit(event) {
+    event.preventDefault();
+    if (
+      this._name.value&&
+      this._address.value&&
+      this._phone.value&&
+      this._age.value &&
+      this._validPhone(this._phone.value)
+    ) {
+        const changedUser = {
+          name: this._name.value,
+          age: this._age.value,
+          gender:this.state.gender,
+          phone: this._phone.value,
+          address: this._address.value,
+          id: this.props.userToChange.ident
+        };
+        this.props.saveChangedUser(changedUser, this.props.userToChange.hash);
+    }
+  }
+  _validPhone(myPhone) {
+    var re = /^\d[\d\(\)\ -]{4,14}\d$/;
+    var valid = re.test(myPhone);
+    if (valid) {
+      return true;
+    }
   }
   render() {
     let form;
     let btnText;
 
     if (this.props.openModal) {
+      console.log(this.props.userToChange.address);
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
           <form
@@ -21,21 +63,21 @@ export default class FormForUserChange extends React.Component {
             <input
               className="form-control"
               type="text"
-              defaultValue={this.props.userToChange.name}
+              defaultValue={this.state.name}
               placeholder="name"
               ref={input => (this._name = input)}
             />
             <input
               className="form-control"
               type="text"
-              defaultValue={this.props.userToChange.age}
+              defaultValue={this.state.age}
               placeholder="age"
               ref={input => (this._age = input)}
             />
 
             <select
               className="form-control"
-              defaultValue={this.props.userToChange.gender}
+              defaultValue={this.state.gender}
               onChange={this._handleChange.bind(this)}
             >
               <option value="male">male</option>
@@ -45,14 +87,14 @@ export default class FormForUserChange extends React.Component {
             <input
               className="form-control"
               type="tel"
-              defaultValue={this.props.userToChange.phone}
+              defaultValue={this.state.phone}
               placeholder="phone"
               ref={input => (this._phone = input)}
             />
             <input
               className="form-control"
               type="text"
-              defaultValue={this.props.userToChange.address}
+              defaultValue={this.state.address}
               placeholder="address"
               ref={input => (this._address = input)}
             />
@@ -77,44 +119,5 @@ export default class FormForUserChange extends React.Component {
         {form}
       </div>
     );
-  }
-  _handleChange(event) {
-    this.setState({value:event.target.value});
-  }
-  _handleSubmit(event) {
-    event.preventDefault();
-    if (
-      this._name.value.length > 0 &&
-      this._address.value.length > 0 &&
-      this._age.value.length > 0
-    ) {
-      if (this._validPhone(this._phone.value)){ 
-          
-        const changedUser = { 
-          name: this._name.value,
-          age: this._age.value,
-        //   gender:this.state.value,
-          phone: this._phone.value,
-          address: this._address.value,
-          id: this.props.userToChange.ident
-        }
-        if(this.state.value.length<1){
-            changedUser.gender=this.props.userToChange.gender
-        }
-        else{
-            changedUser.gender=this.state.value
-        }
-        
-        this.props.saveChangedUser(changedUser, this.props.userToChange.hash);
-      }
-    }
-  }
-  
-  _validPhone(myPhone) {
-    var re = /^\d[\d\(\)\ -]{4,14}\d$/;
-    var valid = re.test(myPhone);
-    if (valid) {
-      return true;
-    }
   }
 }
