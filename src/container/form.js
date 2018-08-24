@@ -77,15 +77,15 @@ class Form extends Component {
             </select>
             <input
               className="form-control"
-              type="text"
-              placeholder="address"
-              ref={input => (this._address = input)}
-            />
-            <input
-              className="form-control"
               type="tel"
               placeholder="phone"
               ref={input => (this._phone = input)}
+            />
+            <input
+              className="form-control"
+              type="text"
+              placeholder="address"
+              ref={input => (this._address = input)}
             />
             <button className="btn btn-primary" type="submit">
               Send info
