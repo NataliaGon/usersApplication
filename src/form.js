@@ -5,14 +5,7 @@ export default class Form extends React.Component {
     super();
     this.state = {
       displayModal: false,
-      value:'',
-      form:{
-          name:'',
-          age:'',
-          gender:'',
-          phone:'',
-          address:''        
-      }
+          gender:'male'       
     };
   }
 componentWillMount(){
@@ -39,7 +32,6 @@ componentWillMount(){
               className="form-control"
               type="text"
               placeholder="name"
-              onBlur={this._onBlurHandle.bind(this)}
               ref={input => (this._name = input)}
             >
               {usertoChangeName}
@@ -95,7 +87,9 @@ componentWillMount(){
     this.setState({ displayModal: !this.state.displayModal });
   }
   _handleChange(event) {
-    this.setState({value: event.target.value});
+      if(this._validPhone(event.target.value)){
+    this.setState({gender: event.target.value});
+      }
   }
   _handleSubmit(event) {
     event.preventDefault();
@@ -109,21 +103,19 @@ componentWillMount(){
       address.value &&
       age.value 
     ){
-       if (this._validPhone(phone.value)){ 
-      this.props.addUser(
+    //    if (this._validPhone(phone.value)){ 
+        this.props.addUser(
         name.value,
         phone.value,
         address.value,
-        this.state.value,
+        this.state.gender,
         age.value,  
       );
       this.setState({displayModal: !this.state.displayModal});
-    }
+    
   }
 }
-_onBlurHandle(e){
-    console.log(this.event.target.placeholder);
-}
+
   _validPhone(myPhone) {
     var re = /^\d[\d\(\)\ -]{4,14}\d$/;
     var valid = re.test(myPhone);
