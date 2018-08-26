@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {usersParam} from'../variable.js';
+import {usersParamHeader} from'../variable.js';
 import makeid from "../service/makeID.js";
 
 class HeaderTab extends Component{
@@ -14,7 +14,7 @@ class HeaderTab extends Component{
     });
   }
   render() {
-    const listForHeader=this.makeListFromData(usersParam);
+    const listForHeader=this.makeListFromData(usersParamHeader);
   return (
   
     <header id="header" className="bg-info">

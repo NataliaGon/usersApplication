@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import myPhone from "../service/checkPhone.js";
 import makeid from "../service/makeID.js";
-import {usersParam} from'../variable.js';
+import {usersParamInput} from'../variable.js';
+import {usersParamSelect}from'../variable.js';
 
 
 
@@ -27,6 +28,32 @@ class Form extends Component {
       );
     });
   }
+  _makeSelectFormData=(usersParamSelect)=>{
+    return usersParamSelect.map(each => {
+      const idForSelect=makeid();
+
+     const optionsForSelect= each.map(i =>{
+        const idForOption=makeid();
+        return (
+          <option 
+          key ={idForOption}
+          >{i}</option>
+        );
+      });
+      
+      return (
+        <select
+        key={idForSelect}
+        className="form-control"
+        defaultValue={this.state.gender}
+        onChange={this._handleChange.bind(this)}
+      >
+        {optionsForSelect}
+      </select>
+      );
+    });
+  }
+
 
   _showModal = () => {
     this.setState({ displayModal: !this.state.displayModal });
@@ -45,10 +72,10 @@ class Form extends Component {
     ) {
       const user = {
         name: this.name.value,
-        age: this.age.value,
-        gender: this.state.gender,
+        age: this.age.value,  
         phone: this.phone.value,
         address: this.address.value,
+        gender: this.state.gender,
         id: makeid()
       };
       this.props.addUser(user);
@@ -66,7 +93,8 @@ class Form extends Component {
     const styles = {
       display: this.state.display
     };
-    const inputsInForm=this._makeListFormData(usersParam);
+    const inputsInForm=this._makeListFormData(usersParamInput);
+    const selectInForm=this. _makeSelectFormData(usersParamSelect);
     if (this.state.displayModal) {
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
@@ -75,6 +103,7 @@ class Form extends Component {
             onSubmit={this._handleSubmit.bind(this)}
           >
             {inputsInForm}
+            {selectInForm}
             <button className="btn btn-primary" type="submit">
               Send info
             </button>

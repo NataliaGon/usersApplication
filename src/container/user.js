@@ -40,10 +40,10 @@ class User extends Component {
       <div className="user">
         <div className="user-name user-info">{this.props.user.name}</div>
         <div className="user-age user-info">{this.props.user.age}</div>
-        <div className="user-gender user-info">{this.props.user.gender}</div>
         <div className="user-phone user-info">{this.props.user.phone}</div>
         <div className="user-address user-info">{this.props.user.address}</div>
-        <div className="buttons">
+        <div className="user-gender user-info">{this.props.user.gender}</div>
+   <div className="buttons">
           <button
             className="btn btn-danger"
             onClick={this._handleDelete.bind(this)}

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import myPhone from "../service/checkPhone.js";
-import {usersParam} from'../variable.js';
+import {usersParamInput} from'../variable.js';
 import makeid from "../service/makeID.js";
+import {usersParamSelect}from'../variable.js';
 
 class FormForUserChange extends Component {
   constructor() {
@@ -39,6 +40,31 @@ class FormForUserChange extends Component {
       );
     });
   }
+  _makeSelectFormData=(usersParamSelect)=>{
+    return usersParamSelect.map(each => {
+      const idForSelect=makeid();
+
+     const optionsForSelect= each.map(i =>{
+        const idForOption=makeid();
+        return (
+          <option 
+          key ={idForOption}
+          >{i}</option>
+        );
+      });
+      
+      return (
+        <select
+        key={idForSelect}
+        className="form-control"
+        defaultValue={this.state.gender}
+        onChange={this._handleChange.bind(this)}
+      >
+        {optionsForSelect}
+      </select>
+      );
+    });
+  }
   _handleChange = event => {
     this.setState({ gender: event.target.value });
   };
@@ -54,10 +80,10 @@ class FormForUserChange extends Component {
       const changedUser = {
         name: this.name.value,
         age: this.age.value,
-        gender: this.state.gender,
         phone: this.phone.value,
         address: this.address.value,
-        id: this.props.userToChange.ident
+        id: this.props.userToChange.ident,
+        gender: this.state.gender
       };
       this.props.saveChangedUser(changedUser, this.props.userToChange.hash);
     } else {
@@ -71,7 +97,8 @@ class FormForUserChange extends Component {
     const styles = {
       display: this.state.display
     };
-    const inputsInForm=this._makeListFormData(usersParam);
+    const inputsInForm=this._makeListFormData(usersParamInput);
+    const selectInForm=this. _makeSelectFormData(usersParamSelect);
     if (this.props.openModal) {
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
@@ -80,6 +107,7 @@ class FormForUserChange extends Component {
             onSubmit={this._handleSubmit.bind(this)}
           >
             {inputsInForm}
+            {selectInForm}
             <button className="btn btn-primary" type="submit">
               Save changes
             </button>
