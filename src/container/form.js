@@ -1,59 +1,47 @@
 import React, { Component } from "react";
 import myPhone from "../service/checkPhone.js";
 import makeid from "../service/makeID.js";
-import {usersParamInput} from'../variable.js';
-import {usersParamSelect}from'../variable.js';
-
-
+import { usersParamHeader } from "../variable.js";
 
 class Form extends Component {
   state = {
     displayModal: false,
-    gender: "male",
     display: "none"
   };
-  
-  _makeListFormData=(usersParam)=>{
+
+  _makeListFormData = usersParam => {
     return usersParam.map(each => {
-      const idForInput=makeid();
+      const idForInput = makeid();
       return (
         <input
-              key ={idForInput}
-              className="form-control"
-              type="text"
-              defaultValue={each}
-              placeholder={each}
-              ref={input => (this[each] = input)}
-            />
+          key={idForInput}
+          className="form-control"
+          type="text"
+          placeholder={each}
+          ref={input => (this[each] = input)}
+        />
       );
     });
-  }
-  _makeSelectFormData=(usersParamSelect)=>{
+  };
+  _makeSelectFormData = usersParamSelect => {
     return usersParamSelect.map(each => {
-      const idForSelect=makeid();
-
-     const optionsForSelect= each.map(i =>{
-        const idForOption=makeid();
-        return (
-          <option 
-          key ={idForOption}
-          >{i}</option>
-        );
+      const idForSelect = makeid();
+      const optionsForSelect = each.map(i => {
+        const idForOption = makeid();
+        return <option key={idForOption}>{i}</option>;
       });
-      
+
       return (
         <select
-        key={idForSelect}
-        className="form-control"
-        defaultValue={this.state.gender}
-        onChange={this._handleChange.bind(this)}
-      >
-        {optionsForSelect}
-      </select>
+          key={idForSelect}
+          className="form-control"
+          onChange={this._handleChange.bind(this)}
+        >
+          {optionsForSelect}
+        </select>
       );
     });
-  }
-
+  };
 
   _showModal = () => {
     this.setState({ displayModal: !this.state.displayModal });
@@ -63,7 +51,6 @@ class Form extends Component {
   };
   _handleSubmit = event => {
     event.preventDefault();
-   
     if (
       this.name.value &&
       myPhone(this.phone.value) &&
@@ -72,14 +59,13 @@ class Form extends Component {
     ) {
       const user = {
         name: this.name.value,
-        age: this.age.value,  
+        age: this.age.value,
         phone: this.phone.value,
         address: this.address.value,
-        gender: this.state.gender,
+        gender: this.gender.value,
         id: makeid()
       };
       this.props.addUser(user);
-
       this.setState({ displayModal: !this.state.displayModal });
     } else {
       this.setState({ display: "block" });
@@ -89,12 +75,12 @@ class Form extends Component {
     let form;
     let btnText;
     let disabled;
-   
+
     const styles = {
       display: this.state.display
     };
-    const inputsInForm=this._makeListFormData(usersParamInput);
-    const selectInForm=this. _makeSelectFormData(usersParamSelect);
+    const inputsInForm = this._makeListFormData(usersParamHeader);
+ 
     if (this.state.displayModal) {
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
@@ -103,7 +89,7 @@ class Form extends Component {
             onSubmit={this._handleSubmit.bind(this)}
           >
             {inputsInForm}
-            {selectInForm}
+         
             <button className="btn btn-primary" type="submit">
               Send info
             </button>

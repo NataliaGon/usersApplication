@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import myPhone from "../service/checkPhone.js";
-import {usersParamInput} from'../variable.js';
+import { usersParamHeader } from "../variable.js";
 import makeid from "../service/makeID.js";
-import {usersParamSelect}from'../variable.js';
+
 
 class FormForUserChange extends Component {
   constructor() {
@@ -16,7 +16,7 @@ class FormForUserChange extends Component {
       display: "none"
     };
   }
-  
+
   componentWillMount = () => {
     this.setState({ name: this.props.userToChange.name });
     this.setState({ age: this.props.userToChange.age });
@@ -25,49 +25,21 @@ class FormForUserChange extends Component {
     this.setState({ address: this.props.userToChange.address });
   };
 
-  _makeListFormData=(usersParam)=>{
+  _makeListFormData = usersParam => {
     return usersParam.map(each => {
-      const idForInputToChange=makeid();
+      const idForInputToChange = makeid();
       return (
         <input
-              key={idForInputToChange}
-              className="form-control"
-              type="text"
-              defaultValue={this.state[each]}
-              placeholder={each}
-              ref={input => (this[each] = input)}
-            />
+          key={idForInputToChange}
+          className="form-control"
+          type="text"
+          defaultValue={this.state[each]}
+          ref={input => (this[each] = input)}
+        />
       );
     });
-  }
-  _makeSelectFormData=(usersParamSelect)=>{
-    return usersParamSelect.map(each => {
-      const idForSelect=makeid();
-
-     const optionsForSelect= each.map(i =>{
-        const idForOption=makeid();
-        return (
-          <option 
-          key ={idForOption}
-          >{i}</option>
-        );
-      });
-      
-      return (
-        <select
-        key={idForSelect}
-        className="form-control"
-        defaultValue={this.state.gender}
-        onChange={this._handleChange.bind(this)}
-      >
-        {optionsForSelect}
-      </select>
-      );
-    });
-  }
-  _handleChange = event => {
-    this.setState({ gender: event.target.value });
   };
+
   _handleSubmit = event => {
     event.preventDefault();
     if (
@@ -83,7 +55,7 @@ class FormForUserChange extends Component {
         phone: this.phone.value,
         address: this.address.value,
         id: this.props.userToChange.ident,
-        gender: this.state.gender
+        gender: this.gender.value,
       };
       this.props.saveChangedUser(changedUser, this.props.userToChange.hash);
     } else {
@@ -97,8 +69,8 @@ class FormForUserChange extends Component {
     const styles = {
       display: this.state.display
     };
-    const inputsInForm=this._makeListFormData(usersParamInput);
-    const selectInForm=this. _makeSelectFormData(usersParamSelect);
+    const inputsInForm = this._makeListFormData(usersParamHeader);
+    
     if (this.props.openModal) {
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
@@ -107,7 +79,7 @@ class FormForUserChange extends Component {
             onSubmit={this._handleSubmit.bind(this)}
           >
             {inputsInForm}
-            {selectInForm}
+          
             <button className="btn btn-primary" type="submit">
               Save changes
             </button>
