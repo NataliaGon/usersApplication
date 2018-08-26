@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import myPhone from "../service/checkPhone.js";
 import makeid from "../service/makeID.js";
+import {usersParam} from'../variable.js';
+
+
 
 class Form extends Component {
   state = {
@@ -8,6 +11,22 @@ class Form extends Component {
     gender: "male",
     display: "none"
   };
+  
+  _makeListFormData=(usersParam)=>{
+    return usersParam.map(each => {
+      const idForInput=makeid();
+      return (
+        <input
+              key ={idForInput}
+              className="form-control"
+              type="text"
+              defaultValue={each}
+              placeholder={each}
+              ref={input => (this[each] = input)}
+            />
+      );
+    });
+  }
 
   _showModal = () => {
     this.setState({ displayModal: !this.state.displayModal });
@@ -17,35 +36,37 @@ class Form extends Component {
   };
   _handleSubmit = event => {
     event.preventDefault();
+   
     if (
-      this._name.value &&
-      myPhone(this._phone.value) &&
-      this._address.value &&
-      this._age.value
+      this.name.value &&
+      myPhone(this.phone.value) &&
+      this.address.value &&
+      this.age.value
     ) {
       const user = {
-        name: this._name.value,
-        age: this._age.value,
+        name: this.name.value,
+        age: this.age.value,
         gender: this.state.gender,
-        phone: this._phone.value,
-        address: this._address.value,
+        phone: this.phone.value,
+        address: this.address.value,
         id: makeid()
-      }
+      };
       this.props.addUser(user);
 
       this.setState({ displayModal: !this.state.displayModal });
-    }else{
-      this.setState({display: 'block'})
-    };
+    } else {
+      this.setState({ display: "block" });
+    }
   };
   render() {
     let form;
     let btnText;
     let disabled;
-    let usertoChangeName;
+   
     const styles = {
       display: this.state.display
     };
+    const inputsInForm=this._makeListFormData(usersParam);
     if (this.state.displayModal) {
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
@@ -53,40 +74,7 @@ class Form extends Component {
             className="form-control-file. form-container"
             onSubmit={this._handleSubmit.bind(this)}
           >
-            <input
-              className="form-control"
-              type="text"
-              placeholder="name"
-              ref={input => (this._name = input)}
-            >
-              {usertoChangeName}
-            </input>
-            <input
-              className="form-control"
-              type="text"
-              placeholder="age"
-              ref={input => (this._age = input)}
-            />
-            <select
-              className="form-control"
-              defaultValue="male"
-              onChange={this._handleChange.bind(this)}
-            >
-              <option value="male">male</option>
-              <option value="femal">femal</option>
-            </select>
-            <input
-              className="form-control"
-              type="tel"
-              placeholder="phone"
-              ref={input => (this._phone = input)}
-            />
-            <input
-              className="form-control"
-              type="text"
-              placeholder="address"
-              ref={input => (this._address = input)}
-            />
+            {inputsInForm}
             <button className="btn btn-primary" type="submit">
               Send info
             </button>
@@ -94,7 +82,6 @@ class Form extends Component {
           <span id="form-fill-error" style={styles}>
             please fill out all fields correct
           </span>
-         
         </div>
       );
       btnText = "cansel";

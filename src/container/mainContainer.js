@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import HeaderTab from '../component/headerTab.js';
-import Form from './form.js';
-import User from './user.js';
-import makeid from '../service/makeID.js';
-import { firebaseDatabaseUsersRef } from '../configs/firebase.js';
-import * as firebase from 'firebase';
+import React, { Component } from "react";
+import HeaderTab from "../component/headerTab.js";
+import Form from "./form.js";
+import User from "./user.js";
+import makeid from "../service/makeID.js";
+import { firebaseDatabaseUsersRef } from "../configs/firebase.js";
+import * as firebase from "firebase";
 
 class MainContainer extends Component {
   state = {
     users: []
   };
   componentWillMount() {
-    this.itemsRef = firebase.database().ref('users');
-    this.itemsRef.on('value', snapshot => {
+    this.itemsRef = firebase.database().ref("users");
+    this.itemsRef.on("value", snapshot => {
       let dataFromFirebase = snapshot.val();
       dataFromFirebase = this.objectToArray(dataFromFirebase);
       this.setState({ users: dataFromFirebase });
@@ -26,8 +26,8 @@ class MainContainer extends Component {
     }
     return array;
   }
-  _addUser = (user) => {
-    user.ident=makeid();
+  _addUser = user => {
+    user.ident = makeid();
     firebaseDatabaseUsersRef.push(user);
   };
   _getUser() {
@@ -67,7 +67,7 @@ class MainContainer extends Component {
       <div>
         <HeaderTab />
         {usersToShow}
-        <Form addUser={this._addUser}/>
+        <Form addUser={this._addUser} />
       </div>
     );
   }

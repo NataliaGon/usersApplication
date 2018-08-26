@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import FormForUserChange from './toChangeUserForm';
+import React, { Component } from "react";
+import FormForUserChange from "./toChangeUserForm";
 
 class User extends Component {
   constructor() {
@@ -7,7 +7,7 @@ class User extends Component {
     this.state = {
       openModal: false,
       userToChange: {},
-      editBtnText: 'edit',
+      editBtnText: "edit",
       userOur: {}
     };
   }
@@ -26,9 +26,9 @@ class User extends Component {
   };
   _changeEditBtnText = () => {
     if (this.state.openModal) {
-      this.setState({ editBtnText: 'edit' });
+      this.setState({ editBtnText: "edit" });
     } else {
-      this.setState({ editBtnText: 'cansel' });
+      this.setState({ editBtnText: "cansel" });
     }
   };
   _saveChangedUser = (user, hash) => {
@@ -38,12 +38,11 @@ class User extends Component {
   render() {
     return (
       <div className="user">
-        <div className="user-name">{this.props.user.name}</div>
-        <div className="user-age">{this.props.user.age}</div>
-        <div className="user-gender">{this.props.user.gender}</div>
-        <div className="user-phone">{this.props.user.phone}</div>
-        <div className="user-address">{this.props.user.address}</div>
-
+        <div className="user-name user-info">{this.props.user.name}</div>
+        <div className="user-age user-info">{this.props.user.age}</div>
+        <div className="user-gender user-info">{this.props.user.gender}</div>
+        <div className="user-phone user-info">{this.props.user.phone}</div>
+        <div className="user-address user-info">{this.props.user.address}</div>
         <div className="buttons">
           <button
             className="btn btn-danger"

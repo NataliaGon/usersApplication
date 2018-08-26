@@ -1,18 +1,21 @@
-import React, { Component } from 'react';
-import myPhone from '../service/checkPhone.js';
+import React, { Component } from "react";
+import myPhone from "../service/checkPhone.js";
+import {usersParam} from'../variable.js';
+import makeid from "../service/makeID.js";
 
 class FormForUserChange extends Component {
   constructor() {
     super();
     this.state = {
-      name: '',
-      age: '',
-      gender: '',
-      phone: '',
-      address: '',
+      name: "",
+      age: "",
+      gender: "",
+      phone: "",
+      address: "",
       display: "none"
     };
   }
+  
   componentWillMount = () => {
     this.setState({ name: this.props.userToChange.name });
     this.setState({ age: this.props.userToChange.age });
@@ -20,30 +23,45 @@ class FormForUserChange extends Component {
     this.setState({ phone: this.props.userToChange.phone });
     this.setState({ address: this.props.userToChange.address });
   };
+
+  _makeListFormData=(usersParam)=>{
+    return usersParam.map(each => {
+      const idForInputToChange=makeid();
+      return (
+        <input
+              key={idForInputToChange}
+              className="form-control"
+              type="text"
+              defaultValue={this.state[each]}
+              placeholder={each}
+              ref={input => (this[each] = input)}
+            />
+      );
+    });
+  }
   _handleChange = event => {
     this.setState({ gender: event.target.value });
   };
   _handleSubmit = event => {
     event.preventDefault();
     if (
-      this._name.value &&
-      this._address.value &&
-      this._phone.value &&
-      this._age.value &&
-      myPhone(this._phone.value)
+      this.name.value &&
+      this.address.value &&
+      this.phone.value &&
+      this.age.value &&
+      myPhone(this.phone.value)
     ) {
       const changedUser = {
-        name: this._name.value,
-        age: this._age.value,
+        name: this.name.value,
+        age: this.age.value,
         gender: this.state.gender,
-        phone: this._phone.value,
-        address: this._address.value,
+        phone: this.phone.value,
+        address: this.address.value,
         id: this.props.userToChange.ident
       };
       this.props.saveChangedUser(changedUser, this.props.userToChange.hash);
-    }
-    else{
-      this.setState({display: 'block'})
+    } else {
+      this.setState({ display: "block" });
     }
   };
 
@@ -53,52 +71,15 @@ class FormForUserChange extends Component {
     const styles = {
       display: this.state.display
     };
+    const inputsInForm=this._makeListFormData(usersParam);
     if (this.props.openModal) {
-     
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
           <form
             className="form-control-file. form-container"
             onSubmit={this._handleSubmit.bind(this)}
           >
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.name}
-              placeholder="name"
-              ref={input => (this._name = input)}
-            />
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.age}
-              placeholder="age"
-              ref={input => (this._age = input)}
-            />
-
-            <select
-              className="form-control"
-              defaultValue={this.state.gender}
-              onChange={this._handleChange.bind(this)}
-            >
-              <option value="male">male</option>
-              <option value="femal">femal</option>
-            </select>
-
-            <input
-              className="form-control"
-              type="tel"
-              defaultValue={this.state.phone}
-              placeholder="phone"
-              ref={input => (this._phone = input)}
-            />
-            <input
-              className="form-control"
-              type="text"
-              defaultValue={this.state.address}
-              placeholder="address"
-              ref={input => (this._address = input)}
-            />
+            {inputsInForm}
             <button className="btn btn-primary" type="submit">
               Save changes
             </button>
@@ -109,7 +90,7 @@ class FormForUserChange extends Component {
         </div>
       );
     } else {
-      form = '';
+      form = "";
     }
     return (
       <div>
@@ -126,7 +107,7 @@ class FormForUserChange extends Component {
   }
 }
 
-export default FormForUserChange ;
+export default FormForUserChange;
 
 //don't use ref
 //check age

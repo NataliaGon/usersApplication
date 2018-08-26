@@ -13,18 +13,12 @@
   align-items: center;
   flex-wrap: wrap;
 }
-.user-name, .user-phone, .user-address, .user-photo,.user-age,.user-gender{
+.user-info {
   display: inline-block;
   text-align: center;
   word-break: break-all;
   padding: 2px;
   flex: 0 0 14vw;
-}
-.user-photo{
-  padding: 0px 15px;
-}
-.image{
-  width: 100%;
 }
 #header{
   display: flex;

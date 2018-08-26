@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { Component } from "react";
+import {usersParam} from'../variable.js';
+import makeid from "../service/makeID.js";
 
-export default function HeaderTab() {
+class HeaderTab extends Component{
+
+ 
+  makeListFromData=(usersParam)=>{
+    return usersParam.map(each => {
+    const idForHeader=makeid();
+      return (
+        <li key={idForHeader} className="user-info">{each}</li>
+      );
+    });
+  }
+  render() {
+    const listForHeader=this.makeListFromData(usersParam);
   return (
+  
     <header id="header" className="bg-info">
       <ul>
-        <li className="user-name">Name</li>
-        <li className="user-name">Age</li>
-        <li className="user-name">Gender</li>
-        <li className="user-phone">Phone</li>
-        <li className="user-address">Address</li>      
+        {listForHeader}
       </ul>
     </header>
   );
-} //Make import array
+} 
+}
+
+export default HeaderTab;
