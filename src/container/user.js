@@ -44,7 +44,7 @@ class User extends Component {
         <div className="user-address user-info">{this.props.user.address}</div>
         <div className="user-gender user-info">{this.props.user.gender}</div>
         <div className="user-marige user-info">{this.props.user.marige}</div>
-   <div className="buttons">
+        <div className="buttons">
           <button
             className="btn btn-danger"
             onClick={this._handleDelete.bind(this)}

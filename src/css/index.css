@@ -18,7 +18,7 @@
   text-align: center;
   word-break: break-all;
   padding: 2px;
-  flex: 0 0 14vw;
+  flex: 0 0 10vw;
 }
 #header{
   display: flex;
@@ -27,7 +27,7 @@
   margin-top: 60px;
   align-items: center;
   padding-left: 20px;
-  padding-right:40px;
+  padding-right:28vw;
   color:white;
 }
 #add-user-btn{

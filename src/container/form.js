@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import myPhone from "../service/checkPhone.js";
 import makeid from "../service/makeID.js";
-import {usersParamInput} from'../variable.js';
-import {usersParamSelect}from'../variable.js';
-
-
+import { usersParamInput } from "../variable.js";
+import { usersParamSelect } from "../variable.js";
 
 class Form extends Component {
   state = {
@@ -12,32 +10,33 @@ class Form extends Component {
     display: "none"
   };
   _handleChange = event => {
-    const target=event.target;
-    const name=target.getAttribute('name');
-    let state=this.state;
-    state[name]=target.value;
+    const target = event.target;
+    const name = target.getAttribute("name");
+    let state = this.state;
+    state[name] = target.value;
     this.setState(state);
   };
   _handleSubmit = event => {
     event.preventDefault();
-   
-    if ( this.state.name&&
+
+    if (
+      this.state.name &&
       myPhone(this.state.phone) &&
       this.state.address &&
       this.state.age &&
-      this.state.gender&&
+      this.state.gender &&
       this.state.marige
     ) {
       const user = {
         name: this.state.name,
-        age: this.state.age,  
+        age: this.state.age,
         phone: this.state.phone,
         address: this.state.address,
         gender: this.state.gender,
-        marige:this.state.marige,
+        marige: this.state.marige,
         id: makeid()
       };
-      
+
       this.props.addUser(user);
 
       this.setState({ displayModal: !this.state.displayModal });
@@ -46,65 +45,59 @@ class Form extends Component {
       this.setState({ display: "block" });
     }
   };
-  _makeListFormData=(usersParam)=>{
+  _makeListFormData = usersParam => {
     return usersParam.map(each => {
-      const idForInput=makeid();
+      const idForInput = makeid();
       return (
         <input
-              key ={idForInput}
-              className="form-control"
-              name={each}
-              type="text"
-              value={this.state[each]}
-              placeholder={each}
-              onChange={this._handleChange}
-            />
+          key={idForInput}
+          className="form-control"
+          name={each}
+          type="text"
+          value={this.state[each]}
+          placeholder={each}
+          onChange={this._handleChange}
+        />
       );
     });
-  }
- 
-  _makeSelectFormData=(usersParamSelect)=>{
+  };
+
+  _makeSelectFormData = usersParamSelect => {
     return usersParamSelect.map(each => {
-     const idForSelect=makeid();
-     const optionsForSelect= each.options.map(option =>{
-     
-      const idForOption=makeid();
-        return (
-          <option 
-          key ={idForOption}
-          >{option}</option>
-        );
+      const idForSelect = makeid();
+      const optionsForSelect = each.options.map(option => {
+        const idForOption = makeid();
+        return <option key={idForOption}>{option}</option>;
       });
 
       return (
         <select
-        key={idForSelect}
-        name={each.name}
-        className="form-control"
-        value={this.state[each.name]}
-        onChange={this._handleChange}
-      >
-      <option>choose {each.name}</option>
-        {optionsForSelect}
-      </select>
+          key={idForSelect}
+          name={each.name}
+          className="form-control"
+          value={this.state[each.name]}
+          onChange={this._handleChange}
+        >
+          <option>choose {each.name}</option>
+          {optionsForSelect}
+        </select>
       );
     });
-  }
+  };
   _showModal = () => {
     this.setState({ displayModal: !this.state.displayModal });
   };
- 
-  
+
   render() {
     let form;
     let btnText;
     let disabled;
-   
+
     const styles = {
       display: this.state.display
     };
-    const inputsInForm=this._makeListFormData(usersParamInput);
-    const selectInForm=this. _makeSelectFormData(usersParamSelect);
+    const inputsInForm = this._makeListFormData(usersParamInput);
+    const selectInForm = this._makeSelectFormData(usersParamSelect);
     if (this.state.displayModal) {
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
@@ -146,6 +139,5 @@ class Form extends Component {
 
 export default Form;
 
-//don't use ref
 //check age
 //onblur check

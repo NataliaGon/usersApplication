@@ -11,6 +11,7 @@ class FormForUserChange extends Component {
       name: "",
       age: "",
       gender: "",
+      marige:"",
       phone: "",
       address: "",
       display: "none"
@@ -21,6 +22,7 @@ class FormForUserChange extends Component {
     this.setState({ name: this.props.userToChange.name });
     this.setState({ age: this.props.userToChange.age });
     this.setState({ gender: this.props.userToChange.gender });
+    this.setState({ marige: this.props.userToChange.marige });
     this.setState({ phone: this.props.userToChange.phone });
     this.setState({ address: this.props.userToChange.address });
   };
@@ -56,8 +58,8 @@ class FormForUserChange extends Component {
           className="form-control"
           value={this.state[each.name]}
           onChange={this._handleChange}
-        >  
-          <option>choose {each.name}</option> 
+        >
+          <option>choose {each.name}</option>
           {optionsForSelect}
         </select>
       );
@@ -77,7 +79,7 @@ class FormForUserChange extends Component {
       myPhone(this.state.phone) &&
       this.state.address &&
       this.state.age &&
-      this.state.gender&&
+      this.state.gender &&
       this.state.marige
     ) {
       const changedUser = {
@@ -142,6 +144,6 @@ class FormForUserChange extends Component {
 
 export default FormForUserChange;
 
-//don't use ref
+
 //check age
 //on blur check
