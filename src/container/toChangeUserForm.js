@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import myPhone from "../service/checkPhone.js";
-import { usersParamHeader } from "../variable.js";
+import { usersParamInput } from "../variable.js";
 import makeid from "../service/makeID.js";
-
+import { usersParamSelect } from "../variable.js";
 
 class FormForUserChange extends Component {
   constructor() {
@@ -33,31 +33,64 @@ class FormForUserChange extends Component {
           key={idForInputToChange}
           className="form-control"
           type="text"
+          name={each}
           defaultValue={this.state[each]}
-          ref={input => (this[each] = input)}
+          placeholder={each}
+          onChange={this._handleChange}
         />
       );
     });
   };
+  _makeSelectFormData = usersParamSelect => {
+    return usersParamSelect.map(each => {
+      const idForSelect = makeid();
+      const optionsForSelect = each.options.map(option => {
+        const idForOption = makeid();
+        return <option key={idForOption}>{option}</option>;
+      });
 
+      return (
+        <select
+          key={idForSelect}
+          name={each.name}
+          className="form-control"
+          value={this.state[each.name]}
+          onChange={this._handleChange}
+        >  
+          <option>choose {each.name}</option> 
+          {optionsForSelect}
+        </select>
+      );
+    });
+  };
+  _handleChange = event => {
+    const target = event.target;
+    const name = target.getAttribute("name");
+    let state = this.state;
+    state[name] = target.value;
+    this.setState(state);
+  };
   _handleSubmit = event => {
     event.preventDefault();
     if (
-      this.name.value &&
-      this.address.value &&
-      this.phone.value &&
-      this.age.value &&
-      myPhone(this.phone.value)
+      this.state.name &&
+      myPhone(this.state.phone) &&
+      this.state.address &&
+      this.state.age &&
+      this.state.gender&&
+      this.state.marige
     ) {
       const changedUser = {
-        name: this.name.value,
-        age: this.age.value,
-        phone: this.phone.value,
-        address: this.address.value,
-        id: this.props.userToChange.ident,
-        gender: this.gender.value,
+        name: this.state.name,
+        age: this.state.age,
+        phone: this.state.phone,
+        address: this.state.address,
+        gender: this.state.gender,
+        marige: this.state.marige,
+        id: this.props.userToChange.ident
       };
       this.props.saveChangedUser(changedUser, this.props.userToChange.hash);
+      this.setState({ display: "none" });
     } else {
       this.setState({ display: "block" });
     }
@@ -69,8 +102,8 @@ class FormForUserChange extends Component {
     const styles = {
       display: this.state.display
     };
-    const inputsInForm = this._makeListFormData(usersParamHeader);
-    
+    const inputsInForm = this._makeListFormData(usersParamInput);
+    const selectInForm = this._makeSelectFormData(usersParamSelect);
     if (this.props.openModal) {
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
@@ -79,7 +112,7 @@ class FormForUserChange extends Component {
             onSubmit={this._handleSubmit.bind(this)}
           >
             {inputsInForm}
-          
+            {selectInForm}
             <button className="btn btn-primary" type="submit">
               Save changes
             </button>

@@ -5,8 +5,8 @@ import makeid from "../service/makeID.js";
 class HeaderTab extends Component{
 
  
-  makeListFromData=(usersParam)=>{
-    return usersParam.map(each => {
+  makeListFromData=(usersParamHeader)=>{
+    return usersParamHeader.map(each => {
     const idForHeader=makeid();
       return (
         <li key={idForHeader} className="user-info">{each}</li>

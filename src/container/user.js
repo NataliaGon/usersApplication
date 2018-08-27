@@ -43,6 +43,7 @@ class User extends Component {
         <div className="user-phone user-info">{this.props.user.phone}</div>
         <div className="user-address user-info">{this.props.user.address}</div>
         <div className="user-gender user-info">{this.props.user.gender}</div>
+        <div className="user-marige user-info">{this.props.user.marige}</div>
    <div className="buttons">
           <button
             className="btn btn-danger"
