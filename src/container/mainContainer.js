@@ -31,10 +31,13 @@ const  objectToArray = object =>{
     firebaseDatabaseUsersRef.push(user);
   };
   const deleteUser =user =>{
+    console.log(user)
     const userIndex = users.indexOf(user);
+    console.log(users)
     users.splice(userIndex, 1);
+    console.log(users)
     firebaseDatabaseUsersRef.child(user.hash).remove();
-    setUsers(users);
+    // setUsers( users );
   }
   const getUser=()=> {
     return users.map(user => {
