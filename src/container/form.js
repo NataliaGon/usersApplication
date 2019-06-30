@@ -11,6 +11,7 @@ class Form extends Component {
   };
   
   handleChange = event => {
+    console.log('1')
     const name = event.target.getAttribute("name");
     let state = this.state;
     state[name] = event.target.value;
