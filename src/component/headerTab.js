@@ -7,16 +7,14 @@ function HeaderTab(){
  
   const makeListFromData=(usersParamHeader)=>{
     return usersParamHeader.map(each => {
-    const idForHeader=makeid();
       return (
-        <li key={idForHeader} className="user-info">{each}</li>
+        <li key={makeid()} className="user-info">{each}</li>
       );
     });
   }
 
    
   return (
-
     <header id="header" className="bg-info">
       <ul>
         {makeListFromData(usersParamHeader)}
