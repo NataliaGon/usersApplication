@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import myPhone from "../service/checkPhone.js";
 import makeid from "../service/makeID.js";
 import { usersParamInput,usersParamSelect } from "../variable.js";
+const uuidv1 = require('uuid/v1');
+
 
 class Form extends Component {
   state = {
@@ -61,13 +63,18 @@ class Form extends Component {
   };
 
   makeSelectFormData = () => {
+    
     return usersParamSelect.map(each => {
+      
       let optionsForSelect = each.options.map(option => {
-        return <option>{option}</option>;
+       
+        
+        return <option  >{option}</option>;
       });
 
       return (
         <select
+          key={each.name} 
           name={each.name}
           className="form-control"
           value={this.state[each.name]}
@@ -87,6 +94,7 @@ class Form extends Component {
     let form;
     let btnText;
     let disabled;
+
     const styles = {
       display: this.state.display
     };
@@ -115,6 +123,7 @@ class Form extends Component {
       form = '';
       btnText = "addUser";
     }
+    
     return (
       <div>
         <button
