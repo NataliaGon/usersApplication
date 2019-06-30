@@ -26,30 +26,30 @@ const  objectToArray = object =>{
     }
     return array;
   }
-  const _addUser = user => {
+  const addUser = user => {
     user.ident = makeid();
     firebaseDatabaseUsersRef.push(user);
   };
-  const _deleteUser =(user) =>{
+  const deleteUser =user =>{
     const userIndex = users.indexOf(user);
     users.splice(userIndex, 1);
     firebaseDatabaseUsersRef.child(user.hash).remove();
     setUsers(users);
   }
-  const _getUser=()=> {
+  const getUser=()=> {
     return users.map(user => {
       return (
         <User
           key={user.ident}
-          deleteUser={_deleteUser}
+          deleteUser={deleteUser}
           user={user}
-          saveUserAfterChange={_saveUserAfterChange}
+          saveUserAfterChange={saveUserAfterChange}
         />
       );
     });
   }
  
-  const  _saveUserAfterChange=(user, hash)=> {
+  const  saveUserAfterChange=(user, hash)=> {
     user.ident = makeid();
     firebaseDatabaseUsersRef.child(hash).update(user);
     
@@ -66,8 +66,8 @@ const  objectToArray = object =>{
     return (
       <React.Fragment>
         <HeaderTab />
-        {_getUser()}
-        <Form addUser={_addUser} />
+        {getUser()}
+        <Form addUser={addUser} />
       </React.Fragment>
     );
   }

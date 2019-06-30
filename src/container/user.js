@@ -15,6 +15,7 @@ class User extends Component {
     this.setState({ userOur: this.props.user });
   };
   _handleDelete = event => {
+    console.log(this.props.user)
     event.preventDefault();
     this.props.deleteUser(this.props.user);
   };
@@ -47,9 +48,8 @@ class User extends Component {
         <div className="buttons">
           <button
             className="btn btn-danger"
-            onClick={this._handleDelete.bind(this)}
+            onClick={this._handleDelete}
           >
-            {" "}
             delete
           </button>
           <button
