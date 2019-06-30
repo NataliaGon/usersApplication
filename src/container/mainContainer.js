@@ -1,24 +1,29 @@
-import React, { Component } from "react";
+import React, {
+  useState,
+  useEffect
+} from "react";
 import HeaderTab from "../component/headerTab.js";
 import Form from "./form.js";
 import User from "./user.js";
 import makeid from "../service/makeID.js";
-import { firebaseDatabaseUsersRef } from "../configs/firebase.js";
+import {
+  firebaseDatabaseUsersRef
+} from "../configs/firebase.js";
 import * as firebase from "firebase";
 
-class MainContainer extends Component {
-  state = {
-    users: []
-  };
-  componentWillMount() {
-    this.itemsRef = firebase.database().ref("users");
-    this.itemsRef.on("value", snapshot => {
+function MainContainer() {
+
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const itemsRef = firebase.database().ref("users");
+    itemsRef.on("value", snapshot => {
       let dataFromFirebase = snapshot.val();
-      dataFromFirebase = this.objectToArray(dataFromFirebase);
-      this.setState({ users: dataFromFirebase });
+      dataFromFirebase = objectToArray(dataFromFirebase);
+      setUsers(dataFromFirebase);
     });
-  }
-  objectToArray(object) {
+  });
+  const objectToArray = object => {
     let array = [];
     for (let key in object) {
       object[key].hash = key;
@@ -26,51 +31,63 @@ class MainContainer extends Component {
     }
     return array;
   }
-  _addUser = user => {
+  const _addUser = user => {
     user.ident = makeid();
     firebaseDatabaseUsersRef.push(user);
   };
-  _getUser() {
-    return this.state.users.map(user => {
-      return (
-        <User
-          key={user.ident}
-          deleteUser={this._deleteUser.bind(this)}
-          user={user}
-          saveUserAfterChange={this._saveUserAfterChange.bind(this)}
+  const _getUser = () => {
+    return users.map(user => {
+      return ( <
+        User key = {
+          user.ident
+        }
+        deleteUser = {
+          _deleteUser
+        }
+        user = {
+          user
+        }
+        saveUserAfterChange = {
+          _saveUserAfterChange
+        }
         />
       );
     });
   }
-  _deleteUser(user) {
-    const users = [...this.state.users];
+  const _deleteUser = (user) => {
+
     const userIndex = users.indexOf(user);
     users.splice(userIndex, 1);
     firebaseDatabaseUsersRef.child(user.hash).remove();
-    this.setState({ users });
+    setUsers(users);
   }
-  _saveUserAfterChange(user, hash) {
+  const _saveUserAfterChange = (user, hash) => {
     user.ident = makeid();
     firebaseDatabaseUsersRef.child(hash).update(user);
-    const users = [...this.state.users];
+
     for (let user of users) {
       if (user.ident === user.id) {
-        let indexUserToChange = this.state.users.indexOf(user);
+        let indexUserToChange = users.indexOf(user);
         users.splice(indexUserToChange, 1, user);
-        this.setState({ users });
+        setUsers(users);
       }
     }
   }
-  render() {
-    let usersToShow = this._getUser();
-    return (
-      <React.Fragment>
-        <HeaderTab />
-        {usersToShow}
-        <Form addUser={this._addUser} />
-      </React.Fragment>
-    );
-  }
+
+
+  return ( <
+    React.Fragment >
+    <
+    HeaderTab / > {
+      _getUser()
+    } <
+    Form addUser = {
+      _addUser
+    }
+    /> <
+    /React.Fragment>
+  );
 }
+
 
 export default MainContainer;
