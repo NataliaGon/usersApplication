@@ -9,14 +9,14 @@ class Form extends Component {
     displayModal: false,
     display: "none"
   };
-  _handleChange = event => {
-    const target = event.target;
-    const name = target.getAttribute("name");
+  
+  handleChange = event => {
+    const name = event.target.getAttribute("name");
     let state = this.state;
-    state[name] = target.value;
+    state[name] = event.target.value;
     this.setState(state);
   };
-  _handleSubmit = event => {
+  handleSubmit = event => {
     event.preventDefault();
 
     if (
@@ -45,7 +45,7 @@ class Form extends Component {
       this.setState({ display: "block" });
     }
   };
-  _makeListFormData = usersParam => {
+  makeListFormData = usersParam => {
     return usersParam.map(each => {
       return (
         <input
@@ -54,27 +54,27 @@ class Form extends Component {
           type="text"
           value={this.state[each]}
           placeholder={each}
-          onChange={this._handleChange}
+          onChange={this.handleChange}
         />
       );
     });
   };
 
-  _makeSelectFormData = usersParamSelect => {
+  makeSelectFormData = () => {
     return usersParamSelect.map(each => {
-      const idForSelect = makeid();
+
       const optionsForSelect = each.options.map(option => {
-        const idForOption = makeid();
-        return <option key={idForOption}>{option}</option>;
+       
+        return <option key={makeid()}>{option}</option>;
       });
 
       return (
         <select
-          key={idForSelect}
+          key={makeid()}
           name={each.name}
           className="form-control"
           value={this.state[each.name]}
-          onChange={this._handleChange}
+          onChange={this.handleChange}
         >
           <option>choose {each.name}</option>
           {optionsForSelect}
@@ -82,7 +82,7 @@ class Form extends Component {
       );
     });
   };
-  _showModal = () => {
+  showModal = () => {
     this.setState({ displayModal: !this.state.displayModal });
   };
 
@@ -101,10 +101,10 @@ class Form extends Component {
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
           <form
             className="form-control-file form-container"
-            onSubmit={this._handleSubmit.bind(this)}
+            onSubmit={this.handleSubmit.bind(this)}
           >
-            {this._makeListFormData(usersParamInput)}
-            {this._makeSelectFormData(usersParamSelect)}
+            {this.makeListFormData(usersParamInput)}
+            {this.makeSelectFormData(usersParamSelect)}
             <button className="btn btn-primary" type="submit">
               Send info
             </button>
@@ -116,7 +116,7 @@ class Form extends Component {
       );
       btnText = "cansel";
     } else {
-      form = null;
+      form = '';
       btnText = "addUser";
     }
     return (
@@ -125,7 +125,7 @@ class Form extends Component {
           className="btn btn-primary"
           id="add-user-btn"
           disabled={disabled}
-          onClick={this._showModal.bind(this)}
+          onClick={this.showModal.bind(this)}
         >
           {btnText}
         </button>

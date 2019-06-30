@@ -31,7 +31,6 @@ const  objectToArray = object =>{
     firebaseDatabaseUsersRef.push(user);
   };
   const _deleteUser =(user) =>{
-    console.log(user)
     const userIndex = users.indexOf(user);
     users.splice(userIndex, 1);
     firebaseDatabaseUsersRef.child(user.hash).remove();
