@@ -56,7 +56,7 @@ class Form extends Component {
           type="text"
           value={this.state[each]}
           placeholder={each}
-          onChange={this._handleChange}
+          onBlur={this._handleChange}
         />
       );
     });
@@ -76,7 +76,7 @@ class Form extends Component {
           name={each.name}
           className="form-control"
           value={this.state[each.name]}
-          onChange={this._handleChange}
+          onBlur={this._handleChange}
         >
           <option>choose {each.name}</option>
           {optionsForSelect}
@@ -96,8 +96,8 @@ class Form extends Component {
     const styles = {
       display: this.state.display
     };
-    const inputsInForm = this._makeListFormData(usersParamInput);
-    const selectInForm = this._makeSelectFormData(usersParamSelect);
+    
+ 
     if (this.state.displayModal) {
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
@@ -105,8 +105,8 @@ class Form extends Component {
             className="form-control-file. form-container"
             onSubmit={this._handleSubmit.bind(this)}
           >
-            {inputsInForm}
-            {selectInForm}
+            {this._makeListFormData(usersParamInput)}
+            {this._makeSelectFormData(usersParamSelect)}
             <button className="btn btn-primary" type="submit">
               Send info
             </button>

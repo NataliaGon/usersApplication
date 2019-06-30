@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import {usersParamHeader} from'../variable.js';
 import makeid from "../service/makeID.js";
 
-class HeaderTab extends Component{
+function HeaderTab(){
 
  
-  makeListFromData=(usersParamHeader)=>{
+  const makeListFromData=(usersParamHeader)=>{
     return usersParamHeader.map(each => {
     const idForHeader=makeid();
       return (
@@ -13,17 +13,17 @@ class HeaderTab extends Component{
       );
     });
   }
-  render() {
-    const listForHeader=this.makeListFromData(usersParamHeader);
+
+   
   return (
-  
+
     <header id="header" className="bg-info">
       <ul>
-        {listForHeader}
+        {makeListFromData(usersParamHeader)}
       </ul>
     </header>
   );
 } 
-}
+
 
 export default HeaderTab;

@@ -54,7 +54,7 @@ class MainContainer extends Component {
     firebaseDatabaseUsersRef.child(hash).update(user);
     const users = [...this.state.users];
     for (let user of users) {
-      if (user.ident == user.id) {
+      if (user.ident === user.id) {
         let indexUserToChange = this.state.users.indexOf(user);
         users.splice(indexUserToChange, 1, user);
         this.setState({ users });
