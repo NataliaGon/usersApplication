@@ -64,11 +64,11 @@ class MainContainer extends Component {
   render() {
     let usersToShow = this._getUser();
     return (
-      <div>
+      <React.Fragment>
         <HeaderTab />
         {usersToShow}
         <Form addUser={this._addUser} />
-      </div>
+      </React.Fragment>
     );
   }
 }

@@ -47,16 +47,14 @@ class Form extends Component {
   };
   _makeListFormData = usersParam => {
     return usersParam.map(each => {
-      const idForInput = makeid();
       return (
         <input
-          key={idForInput}
           className="form-control"
           name={each}
           type="text"
           value={this.state[each]}
           placeholder={each}
-          onBlur={this._handleChange}
+          onChange={this._handleChange}
         />
       );
     });
@@ -76,7 +74,7 @@ class Form extends Component {
           name={each.name}
           className="form-control"
           value={this.state[each.name]}
-          onBlur={this._handleChange}
+          onChange={this._handleChange}
         >
           <option>choose {each.name}</option>
           {optionsForSelect}
@@ -102,7 +100,7 @@ class Form extends Component {
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">
           <form
-            className="form-control-file. form-container"
+            className="form-control-file form-container"
             onSubmit={this._handleSubmit.bind(this)}
           >
             {this._makeListFormData(usersParamInput)}

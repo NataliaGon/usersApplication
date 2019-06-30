@@ -29,10 +29,9 @@ class FormForUserChange extends Component {
 
   _makeListFormData = usersParam => {
     return usersParam.map(each => {
-      const idForInputToChange = makeid();
+
       return (
         <input
-          key={idForInputToChange}
           className="form-control"
           type="text"
           name={each}
@@ -53,7 +52,6 @@ class FormForUserChange extends Component {
 
       return (
         <select
-          key={idForSelect}
           name={each.name}
           className="form-control"
           value={this.state[each.name]}

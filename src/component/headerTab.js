@@ -4,7 +4,6 @@ import makeid from "../service/makeID.js";
 
 function HeaderTab() {
 
-
   const makeListFromData = (usersParamHeader) => {
     return usersParamHeader.map(each => {
       return (
@@ -12,7 +11,6 @@ function HeaderTab() {
       );
     });
   }
-
 
   return (
     <header id="header" className="bg-info">
@@ -22,6 +20,5 @@ function HeaderTab() {
     </header>
   );
 }
-
 
 export default HeaderTab;
