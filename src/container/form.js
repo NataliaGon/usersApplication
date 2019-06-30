@@ -62,7 +62,9 @@ class Form extends Component {
   makeSelectFormData = () => {
     return usersParamSelect.map(each => {
       const optionsForSelect = each.options.map(option => {
+        console.log(makeid());
         return <option key={makeid()}>{option}</option>
+        
       });
 
       return (

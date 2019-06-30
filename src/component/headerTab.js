@@ -3,7 +3,7 @@ import { usersParamHeader } from '../variable.js';
 import makeid from "../service/makeID.js";
 
 function HeaderTab() {
-
+console.log(makeid ());
   const makeListFromData = (usersParamHeader) => {
     return usersParamHeader.map(each => {
       return (
