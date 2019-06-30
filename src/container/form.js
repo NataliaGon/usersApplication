@@ -9,7 +9,7 @@ class Form extends Component {
     displayModal: false,
     display: "none"
   };
-  
+
   handleChange = event => {
     console.log('1')
     const name = event.target.getAttribute("name");
@@ -63,13 +63,12 @@ class Form extends Component {
 
   makeSelectFormData = () => {
     return usersParamSelect.map(each => {
-      let optionsForSelect = each.options.map(option => {   
-        return <option key={makeid()} >{option}</option>;
+      let optionsForSelect = each.options.map(option => {
+        return <option>{option}</option>;
       });
 
       return (
         <select
-          key={makeid()}
           name={each.name}
           className="form-control"
           value={this.state[each.name]}
@@ -93,8 +92,8 @@ class Form extends Component {
     const styles = {
       display: this.state.display
     };
-    
- 
+
+
     if (this.state.displayModal) {
       form = (
         <div className="shadow p-3 mb-5 bg-white rounded" id="form">

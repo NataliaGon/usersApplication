@@ -44,10 +44,10 @@ class FormForUserChange extends Component {
   };
   _makeSelectFormData = usersParamSelect => {
     return usersParamSelect.map(each => {
-      const idForSelect = makeid();
+     
       const optionsForSelect = each.options.map(option => {
-        const idForOption = makeid();
-        return <option key={idForOption}>{option}</option>;
+      
+        return <option >{option}</option>;
       });
 
       return (
