@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import myPhone from "../service/checkPhone.js";
-import { usersParamInput } from "../variable.js";
-import makeid from "../service/makeID.js";
-import { usersParamSelect } from "../variable.js";
+import { usersParamInput,usersParamSelect } from "../variable.js";
+
 
 class FormForUserChange extends Component {
   constructor() {

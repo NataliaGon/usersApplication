@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import myPhone from "../service/checkPhone.js";
 import makeid from "../service/makeID.js";
-import { usersParamInput } from "../variable.js";
-import { usersParamSelect } from "../variable.js";
+import { usersParamInput,usersParamSelect } from "../variable.js";
 
 class Form extends Component {
   state = {
@@ -11,7 +10,7 @@ class Form extends Component {
   };
 
   handleChange = event => {
-    console.log('1')
+
     const name = event.target.getAttribute("name");
     let state = this.state;
     state[name] = event.target.value;
@@ -88,7 +87,6 @@ class Form extends Component {
     let form;
     let btnText;
     let disabled;
-
     const styles = {
       display: this.state.display
     };
