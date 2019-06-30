@@ -45,8 +45,8 @@ class Form extends Component {
       this.setState({ display: "block" });
     }
   };
-  makeListFormData = usersParam => {
-    return usersParam.map(each => {
+  makeListFormData = () => {
+    return usersParamInput.map(each => {
       return (
         <input
           className="form-control"
@@ -62,10 +62,8 @@ class Form extends Component {
 
   makeSelectFormData = () => {
     return usersParamSelect.map(each => {
-
-      const optionsForSelect = each.options.map(option => {
-       
-        return <option key={makeid()}>{option}</option>;
+      let optionsForSelect = each.options.map(option => {   
+        return <option key={makeid()} >{option}</option>;
       });
 
       return (
@@ -103,8 +101,8 @@ class Form extends Component {
             className="form-control-file form-container"
             onSubmit={this.handleSubmit.bind(this)}
           >
-            {this.makeListFormData(usersParamInput)}
-            {this.makeSelectFormData(usersParamSelect)}
+            {this.makeListFormData()}
+            {this.makeSelectFormData()}
             <button className="btn btn-primary" type="submit">
               Send info
             </button>

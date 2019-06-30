@@ -31,13 +31,10 @@ const  objectToArray = object =>{
     firebaseDatabaseUsersRef.push(user);
   };
   const deleteUser =user =>{
-    console.log(user)
+
     const userIndex = users.indexOf(user);
-    console.log(users)
     users.splice(userIndex, 1);
-    console.log(users)
     firebaseDatabaseUsersRef.child(user.hash).remove();
-    // setUsers( users );
   }
   const getUser=()=> {
     return users.map(user => {
@@ -55,14 +52,6 @@ const  objectToArray = object =>{
   const  saveUserAfterChange=(user, hash)=> {
     user.ident = makeid();
     firebaseDatabaseUsersRef.child(hash).update(user);
-    
-    for (let user of users) {
-      if (user.ident === user.id) {
-        let indexUserToChange = users.indexOf(user);
-        users.splice(indexUserToChange, 1, user);
-        setUsers( users );
-      }
-    }
   }
   
 
